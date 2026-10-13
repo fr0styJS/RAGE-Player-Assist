@@ -52,6 +52,7 @@ from PySide6.QtWidgets import (
 
 from config.app_config import (
     APP_NAME,
+    APP_DISPLAY_NAME,
     APP_VERSION,
     CONFIG_FILE,
     APP_DIR,
@@ -1298,7 +1299,7 @@ class ReleaseNotesDialog(QDialog):
 
         title = QLabel("Release Notes")
         title.setObjectName("dialogTitleLabel")
-        subtitle = QLabel("Recent GitHub releases for RAGE Player Assist.")
+        subtitle = QLabel(f"Recent GitHub releases for {APP_DISPLAY_NAME}.")
         subtitle.setObjectName("dialogSubtitleLabel")
         subtitle.setWordWrap(True)
         layout.addWidget(title)
@@ -1352,7 +1353,7 @@ class FirstRunSetupDialog(QDialog):
         self._pages: list[QWidget] = []
         self._discovery_results: list[Path] = []
 
-        self.setWindowTitle(f"{APP_NAME} Setup")
+        self.setWindowTitle(f"{APP_DISPLAY_NAME} Setup")
         self.setModal(True)
         self.resize(720, 520)
         self.setMinimumSize(680, 460)
@@ -1413,7 +1414,7 @@ class FirstRunSetupDialog(QDialog):
         layout.setSpacing(12)
 
         intro = QLabel(
-            "RAGE Player Assist watches your chat log — RAGE MP (.storage) or FiveM GTAW (via GTAW Assistant) — "
+            f"{APP_DISPLAY_NAME} watches your chat log — RAGE MP (.storage) or FiveM GTAW (via GTAW Assistant) — "
             "matches detection rules, and plays alerts for the lines you care about."
         )
         intro.setWordWrap(True)
@@ -1793,7 +1794,7 @@ class PlayerAssistWindow(QMainWindow):
         self._dirty = False
         self._closing_for_exit = False
 
-        self.setWindowTitle(APP_NAME)
+        self.setWindowTitle(APP_DISPLAY_NAME)
         self.setWindowIcon(self.app_icon)
         self.resize(1380, 880)
         self.setMinimumSize(1120, 720)
@@ -1827,7 +1828,7 @@ class PlayerAssistWindow(QMainWindow):
         header_layout.setContentsMargins(0, 0, 0, 0)
         title_col = QVBoxLayout()
         title_col.setSpacing(2)
-        title = QLabel(APP_NAME)
+        title = QLabel(APP_DISPLAY_NAME)
         title.setObjectName("titleLabel")
         subtitle = QLabel("Monitor RageMP chat and get alerts for messages that matter.")
         subtitle.setObjectName("subtitleLabel")
@@ -2367,7 +2368,7 @@ class PlayerAssistWindow(QMainWindow):
 
     def _refresh_window_title(self) -> None:
         suffix = " *" if self._dirty else ""
-        self.setWindowTitle(f"{APP_NAME} v{APP_VERSION}{suffix}")
+        self.setWindowTitle(f"{APP_DISPLAY_NAME} v{APP_VERSION}{suffix}")
 
     def _has_pending_form_changes(self) -> bool:
         current_source = "fivem" if self.chat_source_combo.currentText().startswith("FiveM") else "ragemp"
@@ -3205,10 +3206,10 @@ try {{
         detail_lines = build_details()
         QMessageBox.information(
             self,
-            f"About {APP_NAME}",
+            f"About {APP_DISPLAY_NAME}",
             "\n".join(
                 [
-                    f"{APP_NAME} v{APP_VERSION}",
+                    f"{APP_DISPLAY_NAME} v{APP_VERSION}",
                     f"Build: {build_stamp()}",
                     *detail_lines,
                     f"Config file: {CONFIG_FILE}",
@@ -3225,7 +3226,7 @@ try {{
             self.tray_icon = None
             return
         self.tray_icon = QSystemTrayIcon(self.app_icon, self)
-        self.tray_icon.setToolTip(APP_NAME)
+        self.tray_icon.setToolTip(APP_DISPLAY_NAME)
         tray_menu = QMenu(self)
         show_action = tray_menu.addAction("Show Window")
         show_action.triggered.connect(self._restore_from_tray)
@@ -3305,7 +3306,7 @@ try {{
         self._append_log("Window hidden to tray. Watcher will keep running in the background.")
         if getattr(self, "tray_icon", None) is not None:
             self.tray_icon.showMessage(
-                APP_NAME,
+                APP_DISPLAY_NAME,
                 "The app is still running in the system tray.",
                 QSystemTrayIcon.Information,
                 2500,

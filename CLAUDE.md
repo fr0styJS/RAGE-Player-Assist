@@ -47,7 +47,14 @@ powershell ./build_exe.ps1
 
 ## Version
 
-- `APP_VERSION` is defined in `config/app_config.py` (currently "1.0.1")
+- `SOURCE_APP_VERSION` / `APP_VERSION` are defined in `config/app_config.py` (currently "1.1.0"). `APP_VERSION` comes from `build_metadata.json` when a tagged build has run.
+- `APP_NAME` ("RAGE Player Assist") is the on-disk/binary identity used by the exe, installer and `%LOCALAPPDATA%` folder; `APP_DISPLAY_NAME` ("RAGE + FiveM Player Assist") is what the UI shows. Keep them separate — renaming `APP_NAME` breaks the portable updater and installed paths.
+
+## Releases
+
+- Releases are published on the fork: https://github.com/fr0styJS/RAGE-Player-Assist/releases (the upstream `SebzIO` repo is read-only for this account).
+- Local flow: `$env:RPA_RELEASE_TAG="vX.Y.Z"; powershell -File .\build_exe.ps1` (the tag must equal `SOURCE_APP_VERSION`), zip `dist\RAGE Player Assist\{RAGE Player Assist.exe,_internal}`, then `gh release create`/`gh release upload` with the standalone exe, the portable zip and notes.
+- `GITHUB_OWNER`/`GITHUB_REPO` in `config/app_config.py` drive both the in-app update check and the Help → Release Notes dialog.
 
 ## Notes
 

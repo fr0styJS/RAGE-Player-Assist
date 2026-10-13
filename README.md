@@ -1,6 +1,19 @@
-# RAGE Player Assist
+# RAGE + FiveM Player Assist
 
-RAGE Player Assist is a Windows desktop companion for monitoring RageMP **and** FiveM GTAW chat feeds and surfacing the lines that matter. v1.1.0 adds cross-compatible FiveM support via GTAW Assistant.
+RAGE + FiveM Player Assist is a Windows desktop companion for monitoring RageMP **and** FiveM GTAW chat feeds and surfacing the lines that matter. v1.1.0 adds cross-compatible FiveM support via GTAW Assistant.
+
+The shipped executable and installer keep the original names (`RAGE Player Assist.exe`, `RAGE-Player-Assist-<tag>-setup.msi`) and settings still live in `%LOCALAPPDATA%\RAGE Player Assist`, so existing installs and shortcuts keep working after the rename.
+
+## What's New In v1.1.0
+
+- **FiveM GTAW support** — choose RAGE MP or FiveM as the chat source instead of RAGE only.
+- **Live NUI mode** — reads FiveM chat directly from the local NUI DevTools endpoint (`127.0.0.1:13172`) when the GTAW HUD is loaded, with automatic fallback to tailing GTAW Assistant's session file.
+- **Cross-compatible first-time setup** — the setup wizard detects and configures both chat sources.
+- **Theme auto-save** — switching themes persists immediately instead of needing a manual save.
+- **1440p layout fix** — the Selected Detection panel no longer squishes at 1440p.
+- **Portable updater fix** — a PowerShell syntax error that crashed the portable updater is fixed.
+
+Download assets and full history: [Releases](https://github.com/fr0styJS/RAGE-Player-Assist/releases).
 
 It is built for situations where important chat activity can be easy to miss: private messages, name mentions, staff-related keywords, reports, or any custom pattern you want to track. Instead of watching the game window constantly, you can let the app monitor the feed in real time and alert you when a configured rule matches.
 
@@ -8,7 +21,7 @@ The project is local-first, lightweight in scope, and designed to keep working w
 
 ## What This Project Is
 
-At its core, RAGE Player Assist is a configurable chat watcher:
+At its core, RAGE + FiveM Player Assist is a configurable chat watcher:
 
 - it reads a RageMP `.storage` file **or** a FiveM GTAW log (via GTAW Assistant) as new lines are written
 - it compares those lines against user-defined detection rules
@@ -25,7 +38,7 @@ This makes it useful for staff workflows, moderation workflows, and any playstyl
 
 ## Who It Is For
 
-RAGE Player Assist is most useful for:
+RAGE + FiveM Player Assist is most useful for:
 
 - server admins and moderators
 - staff members watching private messages or reports
@@ -84,8 +97,11 @@ This gives you enough control to build simple alerting or more specific pattern-
 
 If a packaged release is available, you can choose between:
 
+- a standalone `RAGE-Player-Assist-<tag>-windows.exe` (single file, run it directly)
 - a portable Windows zip
 - a Windows `.msi` installer
+
+The standalone executable is the quickest option: download it, run it, done — no extraction and no installer.
 
 The portable zip is for users who want to place the app wherever they like and keep it self-contained.
 
@@ -213,11 +229,13 @@ For distribution, the important packaged contents are:
 - `dist\RAGE Player Assist\RAGE Player Assist.exe`
 - `dist\RAGE Player Assist\_internal\`
 
-The extra top-level executable that may appear directly under `dist\` is not the intended release artifact.
+The extra top-level executable that appears directly under `dist\` is the standalone single-file build of the same output; it runs on its own and is attached to releases as `RAGE-Player-Assist-<tag>-windows.exe`.
 
 ## Releases
 
-The repository includes a GitHub Actions workflow at `.github/workflows/release.yml`.
+Releases for this fork are published at https://github.com/fr0styJS/RAGE-Player-Assist/releases — the standalone exe and the portable zip are built locally from `build_exe.ps1` and uploaded with `gh release create`/`gh release upload`.
+
+The repository also includes a GitHub Actions workflow at `.github/workflows/release.yml`.
 
 That workflow is intended to:
 

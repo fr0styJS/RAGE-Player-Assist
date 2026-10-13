@@ -11,12 +11,12 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
-from config.app_config import APP_NAME, load_config
+from config.app_config import APP_DISPLAY_NAME, load_config
 from detections.linehandler import main as run_line_handler
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=f"Run the {APP_NAME} watcher.")
+    parser = argparse.ArgumentParser(description=f"Run the {APP_DISPLAY_NAME} watcher.")
     parser.add_argument(
         "--console",
         action="store_true",
@@ -42,7 +42,7 @@ def main() -> int:
     try:
         if args.console:
             config = load_config()
-            print(f"{APP_NAME} is running.")
+            print(f"{APP_DISPLAY_NAME} is running.")
             if args.debug:
                 print("Debug mode enabled. Printing watcher activity and new chat lines.")
             if args.replay_last > 0:
@@ -59,10 +59,10 @@ def main() -> int:
 
             launch_gui()
     except KeyboardInterrupt:
-        print(f"Shutting down {APP_NAME}.")
+        print(f"Shutting down {APP_DISPLAY_NAME}.")
         return 0
     except Exception as error:
-        print(f"{APP_NAME} failed: {error}")
+        print(f"{APP_DISPLAY_NAME} failed: {error}")
         return 1
 
     return 0

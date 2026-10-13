@@ -61,10 +61,14 @@ CONFIG_FILE = APP_DIR / "app_config.json"
 DEFAULT_STORAGE_PATH = ""
 DEFAULT_FIVEM_SESSION_PATH = str(Path(os.environ.get("LOCALAPPDATA", str(Path.home() / "AppData" / "Local"))) / "GTAW-Log-Parser-FiveM" / "current-session.txt")
 DEFAULT_CHAT_SOURCE = "ragemp"  # "ragemp" | "fivem"
+# APP_NAME is the on-disk/binary identity: it must keep matching the executable name,
+# the portable updater's expectations, and the %LOCALAPPDATA% data folder.
+# Use APP_DISPLAY_NAME for anything the user actually reads.
 APP_NAME = "RAGE Player Assist"
+APP_DISPLAY_NAME = "RAGE + FiveM Player Assist"
 SOURCE_APP_VERSION = "1.1.0"
-GITHUB_OWNER = "SebzIO"
-GITHUB_REPO = "AdminAssist"
+GITHUB_OWNER = "fr0styJS"
+GITHUB_REPO = "RAGE-Player-Assist"
 GITHUB_RELEASES_URL = f"https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}/releases"
 GITHUB_LATEST_RELEASE_API = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
 GITHUB_RELEASES_API = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases"
